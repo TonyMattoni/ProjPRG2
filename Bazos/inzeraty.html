@@ -99,7 +99,7 @@
     <h2 id="pageTitle">Načítám inzeráty...</h2>
     
     <div class="ad-list" id="adList">
-        <!-- Dynamicky doplněno JS -->
+       
     </div>
 </div>
 
@@ -108,7 +108,7 @@
 </footer>
 
 <script>
-    // Parsování URL parametrů
+    
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('kategorie');
     const searchWhat = urlParams.get('hledani');
@@ -120,7 +120,7 @@
     const pageTitle = document.getElementById('pageTitle');
     const adList = document.getElementById('adList');
     
-    // Předvyplnění vyhledávacích polí
+    
     if(searchWhat) document.getElementById('searchInputWhat').value = searchWhat;
     if(searchWhere) document.getElementById('searchInputWhere').value = searchWhere;
     if(searchDistance) document.getElementById('searchInputDistance').value = searchDistance;
@@ -130,7 +130,7 @@
     if (category) {
         pageTitle.innerText = 'Inzeráty: ' + category;
         
-        // Změna placeholderu pole "Co:" podle vybrané kategorie
+        
         const whatInput = document.getElementById('searchInputWhat');
         switch (category) {
             case 'Zvířata': whatInput.placeholder = 'Např. Pes, Kočka...'; break;
@@ -159,7 +159,7 @@
         pageTitle.innerText = 'Všechny inzeráty';
     }
 
-    // Dummy data pro inzeráty
+ 
     setTimeout(function() {
         adList.innerHTML = 
             '<div class="ad-item">' +
@@ -180,7 +180,7 @@
             '</div>';
     }, 300);
     
-    // Vyhledávací tlačítko na této stránce
+  
     const searchBtnInzeraty = document.getElementById("searchBtnInzeraty");
     if (searchBtnInzeraty) {
         searchBtnInzeraty.addEventListener("click", function () {
