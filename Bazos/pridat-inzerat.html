@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Přidat inzerát | Bazoš – demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="icon orange-icon">
+        <a href="index.html"><img src="img/kupitologo_300x125.png" alt="Logo"></a>
+    </div>
+
+    <div class="menu">
+        <a href="oblibene.html">Oblíbené inzeráty</a>
+        <a href="moje-inzeraty.html">Moje inzeráty</a>
+        <a href="pridat-inzerat.html" style="color: #ff7b00; font-weight: 700;">Přidat inzerát</a>
+    </div>
+</header>
+
+<div class="content-page">
+    <a href="index.html" class="back-link">← Zpět na hlavní stranu</a>
+    <h2>Nový inzerát</h2>
+    
+    <form action="#" method="get" id="addForm">
+        <div class="form-group">
+            <label>Kategorie:</label>
+            <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                <option>Zvířata</option>
+                <option>Děti</option>
+                <option>Oblečení</option>
+                <option>Nábytek</option>
+                <option>Auto</option>
+                <option>Mobily</option>
+                <option>Počítače</option>
+                <option>Ostatní</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Nadpis inzerátu:</label>
+            <input type="text" placeholder="Např. Prodám horské kolo" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Popis:</label>
+            <textarea rows="5" placeholder="Detailní popis..." required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Cena (Kč):</label>
+            <input type="number" placeholder="Např. 5000" required>
+        </div>
+        
+        <button type="submit" class="btn-primary">Přidat inzerát</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2026 Bazoš Demo - Všechna práva vyhrazena.</p>
+</footer>
+
+<script>
+    document.getElementById('addForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Inzerát by byl přidán!');
+        window.location.href = 'moje-inzeraty.html';
+    });
+</script>
+</body>
+</html>

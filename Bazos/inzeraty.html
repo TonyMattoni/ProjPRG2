@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Výpis inzerátů | Bazoš – demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ad-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .ad-item {
+            display: flex;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fafafa;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ad-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            background: #fff;
+        }
+        .ad-image {
+            width: 150px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+        }
+        .ad-content {
+            padding: 15px;
+            flex-grow: 1;
+        }
+        .ad-title {
+            margin: 0 0 10px 0;
+            color: #222;
+            font-size: 18px;
+        }
+        .ad-desc {
+            color: #666;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        .ad-price {
+            font-weight: bold;
+            color: #ff7b00;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="icon orange-icon">
+        <a href="index.html"><img src="img/kupitologo_300x125.png" alt="Logo"></a>
+    </div>
+
+    <div class="menu">
+        <a href="oblibene.html">Oblíbené inzeráty</a>
+        <a href="moje-inzeraty.html">Moje inzeráty</a>
+        <a href="pridat-inzerat.html">Přidat inzerát</a>
+    </div>
+</header>
+
+<div class="search">
+    <label>Co:</label>
+    <input type="text" id="searchInputWhat" placeholder="Např. Kolo">
+
+    <label>Lokalita:</label>
+    <input type="text" id="searchInputWhere" placeholder="PSČ nebo Město">
+    
+    <label>Vzdálenost:</label>
+    <select id="searchInputDistance">
+        <option value="">Celá ČR</option>
+        <option value="10">+ 10 km</option>
+        <option value="30">+ 30 km</option>
+        <option value="50">+ 50 km</option>
+        <option value="100">+ 100 km</option>
+    </select>
+    
+    <label>Cena od:</label>
+    <input type="number" id="searchInputPriceFrom" placeholder="Kč" style="width: 100px;">
+    
+    <label>do:</label>
+    <input type="number" id="searchInputPriceTo" placeholder="Kč" style="width: 100px;">
+
+    <button id="searchBtnInzeraty">Hledat</button>
+</div>
+
+<div class="content-page">
+    <a href="index.html" class="back-link">← Zpět na kategorie</a>
+    <h2 id="pageTitle">Načítám inzeráty...</h2>
+    
+    <div class="ad-list" id="adList">
+        <!-- Dynamicky doplněno JS -->
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Bazoš Demo - Všechna práva vyhrazena.</p>
+</footer>
+
+<script>
+    // Parsování URL parametrů
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('kategorie');
+    const searchWhat = urlParams.get('hledani');
+    const searchWhere = urlParams.get('lokalita');
+    const searchDistance = urlParams.get('vzdalenost');
+    const searchPriceFrom = urlParams.get('cenaOd');
+    const searchPriceTo = urlParams.get('cenaDo');
+    
+    const pageTitle = document.getElementById('pageTitle');
+    const adList = document.getElementById('adList');
+    
+    // Předvyplnění vyhledávacích polí
+    if(searchWhat) document.getElementById('searchInputWhat').value = searchWhat;
+    if(searchWhere) document.getElementById('searchInputWhere').value = searchWhere;
+    if(searchDistance) document.getElementById('searchInputDistance').value = searchDistance;
+    if(searchPriceFrom) document.getElementById('searchInputPriceFrom').value = searchPriceFrom;
+    if(searchPriceTo) document.getElementById('searchInputPriceTo').value = searchPriceTo;
+    
+    if (category) {
+        pageTitle.innerText = 'Inzeráty: ' + category;
+        
+        // Změna placeholderu pole "Co:" podle vybrané kategorie
+        const whatInput = document.getElementById('searchInputWhat');
+        switch (category) {
+            case 'Zvířata': whatInput.placeholder = 'Např. Pes, Kočka...'; break;
+            case 'Děti': whatInput.placeholder = 'Např. Kočárek, Hračky...'; break;
+            case 'Oblečení': whatInput.placeholder = 'Např. Tričko, Bunda...'; break;
+            case 'Nábytek': whatInput.placeholder = 'Např. Židle, Stůl...'; break;
+            case 'Auto': whatInput.placeholder = 'Např. Škoda, Volant...'; break;
+            case 'Mobily': whatInput.placeholder = 'Např. iPhone, Samsung...'; break;
+            case 'Počítače': whatInput.placeholder = 'Např. Herní PC, Notebook...'; break;
+            case 'Ostatní': whatInput.placeholder = 'Např. Hodinky...'; break;
+        }
+
+    } else if (searchWhat || searchWhere || searchPriceFrom || searchPriceTo) {
+        let text = 'Výsledky hledání: ';
+        if (searchWhat) text += searchWhat + ' ';
+        if (searchWhere) {
+            text += '(' + searchWhere;
+            if (searchDistance) text += ' +' + searchDistance + 'km';
+            text += ')';
+        }
+        if (searchPriceFrom || searchPriceTo) {
+            text += " [Cena: " + (searchPriceFrom ? searchPriceFrom : "0") + " - " + (searchPriceTo ? searchPriceTo : "Neomezena") + " Kč]";
+        }
+        pageTitle.innerText = text;
+    } else {
+        pageTitle.innerText = 'Všechny inzeráty';
+    }
+
+    // Dummy data pro inzeráty
+    setTimeout(function() {
+        adList.innerHTML = 
+            '<div class="ad-item">' +
+                '<div class="ad-image">Bez fotky</div>' +
+                '<div class="ad-content">' +
+                    '<h3 class="ad-title">Ukázkový inzerát 1</h3>' +
+                    '<p class="ad-desc">Toto je ukázkový text inzerátu, odpovídající na váš dotaz ' + (category ? "v kategorii " + category : "") + '.</p>' +
+                    '<div class="ad-price">1 500 Kč</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="ad-item">' +
+                '<div class="ad-image">Bez fotky</div>' +
+                '<div class="ad-content">' +
+                    '<h3 class="ad-title">Ukázkový inzerát 2</h3>' +
+                    '<p class="ad-desc">Ve skvělém stavu, málo používané.</p>' +
+                    '<div class="ad-price">890 Kč</div>' +
+                '</div>' +
+            '</div>';
+    }, 300);
+    
+    // Vyhledávací tlačítko na této stránce
+    const searchBtnInzeraty = document.getElementById("searchBtnInzeraty");
+    if (searchBtnInzeraty) {
+        searchBtnInzeraty.addEventListener("click", function () {
+            const what = document.getElementById('searchInputWhat').value;
+            const where = document.getElementById('searchInputWhere').value;
+            const distance = document.getElementById('searchInputDistance').value;
+            const priceFrom = document.getElementById('searchInputPriceFrom').value;
+            const priceTo = document.getElementById('searchInputPriceTo').value;
+            
+            let queryParams = [];
+            if (what) queryParams.push("hledani=" + encodeURIComponent(what));
+            if (where) queryParams.push("lokalita=" + encodeURIComponent(where));
+            if (distance) queryParams.push("vzdalenost=" + encodeURIComponent(distance));
+            if (priceFrom) queryParams.push("cenaOd=" + encodeURIComponent(priceFrom));
+            if (priceTo) queryParams.push("cenaDo=" + encodeURIComponent(priceTo));
+            
+            if (queryParams.length > 0) {
+                window.location.href = "inzeraty.html?" + queryParams.join('&');
+            } else {
+                alert("Zadejte něco do vyhledávání.");
+            }
+        });
+    }
+</script>
+</body>
+</html>
