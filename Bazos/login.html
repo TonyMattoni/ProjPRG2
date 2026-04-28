@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Přihlášení | Bazoš – demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<header>
+    <div class="icon orange-icon">
+        <a href="index.html"><img src="img/kupitologo_300x125.png" alt="Logo"></a>
+    </div>
+    <div class="menu" id="headerMenu">
+        <a href="login.html" style="color: #ff7b00; font-weight: 700;">Přihlásit</a>
+        <a href="register.html">Registrovat</a>
+        <a href="pridat-inzerat.html">Přidat inzerát</a>
+    </div>
+</header>
+
+<div class="content-page" style="max-width: 400px;">
+    <h2>Přihlášení</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label>E-mail:</label>
+            <input type="email" id="loginEmail" required placeholder="Napište e-mail">
+        </div>
+        <div class="form-group">
+            <label>Heslo:</label>
+            <input type="password" id="loginPassword" required placeholder="Zadejte heslo">
+        </div>
+        <p id="loginError" style="color: red; display: none;">Neplatný e-mail nebo heslo.</p>
+        <button type="submit" class="btn-primary" style="width: 100%;">Přihlásit se</button>
+    </form>
+    <p style="text-align: center; margin-top: 15px;">Nemáte účet? <a href="register.html">Zaregistrujte se</a></p>
+</div>
+
+<footer>
+    <p>&copy; 2026 Bazoš Demo - Všechna práva vyhrazena.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

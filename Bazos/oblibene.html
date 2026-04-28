@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Oblíbené inzeráty | Bazoš – demo</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
         <a href="index.html"><img src="img/kupitologo_300x125.png" alt="Logo"></a>
     </div>
 
-    <div class="menu">
+    <div class="menu" id="headerMenu">
         <a href="oblibene.html" style="color: #ff7b00; font-weight: 700;">Oblíbené inzeráty</a>
         <a href="moje-inzeraty.html">Moje inzeráty</a>
         <a href="pridat-inzerat.html">Přidat inzerát</a>
@@ -23,7 +23,9 @@
 <div class="content-page">
     <a href="index.html" class="back-link">← Zpět na hlavní stranu</a>
     <h2>Vaše oblíbené inzeráty</h2>
-    <p>Zatím nemáte uložené žádné oblíbené inzeráty.</p>
+    <div id="favAdList" class="ad-list">
+        
+    </div>
 </div>
 
 <footer>

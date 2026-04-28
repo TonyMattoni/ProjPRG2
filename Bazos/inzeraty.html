@@ -4,56 +4,7 @@
     <meta charset="UTF-8">
     <title>Výpis inzerátů | Bazoš – demo</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .ad-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .ad-item {
-            display: flex;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #fafafa;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .ad-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            background: #fff;
-        }
-        .ad-image {
-            width: 150px;
-            background: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 14px;
-        }
-        .ad-content {
-            padding: 15px;
-            flex-grow: 1;
-        }
-        .ad-title {
-            margin: 0 0 10px 0;
-            color: #222;
-            font-size: 18px;
-        }
-        .ad-desc {
-            color: #666;
-            margin: 0 0 10px 0;
-            font-size: 14px;
-        }
-        .ad-price {
-            font-weight: bold;
-            color: #ff7b00;
-            font-size: 18px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -62,7 +13,7 @@
         <a href="index.html"><img src="img/kupitologo_300x125.png" alt="Logo"></a>
     </div>
 
-    <div class="menu">
+    <div class="menu" id="headerMenu">
         <a href="oblibene.html">Oblíbené inzeráty</a>
         <a href="moje-inzeraty.html">Moje inzeráty</a>
         <a href="pridat-inzerat.html">Přidat inzerát</a>
@@ -96,7 +47,14 @@
 
 <div class="content-page">
     <a href="index.html" class="back-link">← Zpět na kategorie</a>
-    <h2 id="pageTitle">Načítám inzeráty...</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 id="pageTitle" style="margin: 0; border: none;">Načítám inzeráty...</h2>
+        <select id="sortAds" style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-family: 'Inter', sans-serif;">
+            <option value="newest">Nejnovější</option>
+            <option value="price-asc">Od nejlevnějšího</option>
+            <option value="price-desc">Od nejdražšího</option>
+        </select>
+    </div>
     
     <div class="ad-list" id="adList">
        
@@ -115,11 +73,10 @@
     const searchWhere = urlParams.get('lokalita');
     const searchDistance = urlParams.get('vzdalenost');
     const searchPriceFrom = urlParams.get('cenaOd');
-    const searchPriceTo = urlParams.get('cenaDo');
+    const searchPriceTo = urlParams.get('cenaTo');
     
     const pageTitle = document.getElementById('pageTitle');
     const adList = document.getElementById('adList');
-    
     
     if(searchWhat) document.getElementById('searchInputWhat').value = searchWhat;
     if(searchWhere) document.getElementById('searchInputWhere').value = searchWhere;
@@ -129,8 +86,6 @@
     
     if (category) {
         pageTitle.innerText = 'Inzeráty: ' + category;
-        
-        
         const whatInput = document.getElementById('searchInputWhat');
         switch (category) {
             case 'Zvířata': whatInput.placeholder = 'Např. Pes, Kočka...'; break;
@@ -142,7 +97,6 @@
             case 'Počítače': whatInput.placeholder = 'Např. Herní PC, Notebook...'; break;
             case 'Ostatní': whatInput.placeholder = 'Např. Hodinky...'; break;
         }
-
     } else if (searchWhat || searchWhere || searchPriceFrom || searchPriceTo) {
         let text = 'Výsledky hledání: ';
         if (searchWhat) text += searchWhat + ' ';
@@ -158,52 +112,7 @@
     } else {
         pageTitle.innerText = 'Všechny inzeráty';
     }
-
- 
-    setTimeout(function() {
-        adList.innerHTML = 
-            '<div class="ad-item">' +
-                '<div class="ad-image">Bez fotky</div>' +
-                '<div class="ad-content">' +
-                    '<h3 class="ad-title">Ukázkový inzerát 1</h3>' +
-                    '<p class="ad-desc">Toto je ukázkový text inzerátu, odpovídající na váš dotaz ' + (category ? "v kategorii " + category : "") + '.</p>' +
-                    '<div class="ad-price">1 500 Kč</div>' +
-                '</div>' +
-            '</div>' +
-            '<div class="ad-item">' +
-                '<div class="ad-image">Bez fotky</div>' +
-                '<div class="ad-content">' +
-                    '<h3 class="ad-title">Ukázkový inzerát 2</h3>' +
-                    '<p class="ad-desc">Ve skvělém stavu, málo používané.</p>' +
-                    '<div class="ad-price">890 Kč</div>' +
-                '</div>' +
-            '</div>';
-    }, 300);
-    
-  
-    const searchBtnInzeraty = document.getElementById("searchBtnInzeraty");
-    if (searchBtnInzeraty) {
-        searchBtnInzeraty.addEventListener("click", function () {
-            const what = document.getElementById('searchInputWhat').value;
-            const where = document.getElementById('searchInputWhere').value;
-            const distance = document.getElementById('searchInputDistance').value;
-            const priceFrom = document.getElementById('searchInputPriceFrom').value;
-            const priceTo = document.getElementById('searchInputPriceTo').value;
-            
-            let queryParams = [];
-            if (what) queryParams.push("hledani=" + encodeURIComponent(what));
-            if (where) queryParams.push("lokalita=" + encodeURIComponent(where));
-            if (distance) queryParams.push("vzdalenost=" + encodeURIComponent(distance));
-            if (priceFrom) queryParams.push("cenaOd=" + encodeURIComponent(priceFrom));
-            if (priceTo) queryParams.push("cenaDo=" + encodeURIComponent(priceTo));
-            
-            if (queryParams.length > 0) {
-                window.location.href = "inzeraty.html?" + queryParams.join('&');
-            } else {
-                alert("Zadejte něco do vyhledávání.");
-            }
-        });
-    }
 </script>
+<script src="script.js"></script>
 </body>
 </html>

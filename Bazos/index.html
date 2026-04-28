@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Bazoš – demo</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
     <img src="img/kupitologo_300x125.png">
 </div>
 
-    <div class="menu">
+    <div class="menu" id="headerMenu">
         <a href="oblibene.html">Oblíbené inzeráty</a>
         <a href="moje-inzeraty.html">Moje inzeráty</a>
         <a href="pridat-inzerat.html">Přidat inzerát</a>
@@ -47,46 +47,54 @@
 
 <div class="categories">
 <div class="category" data-name="Zvířata">
-    <h3>Zvířata</h3>
+    <h3>Zvířata <span class="cat-count" id="count-Zvířata"></span></h3>
     <p>Psi, Kočky…</p>
 </div>
 
 <div class="category" data-name="Děti">
-    <h3>Děti</h3>
+    <h3>Děti <span class="cat-count" id="count-Děti"></span></h3>
     <p>Kočárky, Hračky…</p>
 </div>
 
 <div class="category" data-name="Oblečení">
-    <h3>Oblečení</h3>
+    <h3>Oblečení <span class="cat-count" id="count-Oblečení"></span></h3>
     <p>Kalhoty, Mikiny…</p>
 </div>
 
 <div class="category" data-name="Nábytek">
-    <h3>Nábytek</h3>
+    <h3>Nábytek <span class="cat-count" id="count-Nábytek"></span></h3>
     <p>Gauč, Židle…</p>
 </div>
 
 <div class="category" data-name="Auto">
-    <h3>Auto</h3>
+    <h3>Auto <span class="cat-count" id="count-Auto"></span></h3>
     <p>Osobní, Díly…</p>
 </div>
 
 <div class="category" data-name="Mobily">
-    <h3>Mobily</h3>
+    <h3>Mobily <span class="cat-count" id="count-Mobily"></span></h3>
     <p>Apple, Samsung…</p>
 </div>
 
 <div class="category" data-name="Počítače">
-    <h3>Počítače</h3>
+    <h3>Počítače <span class="cat-count" id="count-Počítače"></span></h3>
     <p>Notebooky, PC…</p>
 </div>
 
-<div class="category" data-name="Ostatní">
-    <h3>Ostatní</h3>
-    <p>Vše ostatní…</p>
+<div class="category" data-name="Sport">
+    <h3>Sport <span class="cat-count" id="count-Sport"></span></h3>
+    <p>Kola, Běžky…</p>
 </div>
 
+<div class="category" data-name="Nemovitosti">
+    <h3>Nemovitosti <span class="cat-count" id="count-Nemovitosti"></span></h3>
+    <p>Byty, Domy…</p>
+</div>
 
+<div class="category" data-name="Ostatní">
+    <h3>Ostatní <span class="cat-count" id="count-Ostatní"></span></h3>
+    <p>Vše ostatní…</p>
+</div>
 </div>
 
 <script src="script.js"></script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Přidat inzerát | Bazoš – demo</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
         <a href="index.html"><img src="img/kupitologo_300x125.png" alt="Logo"></a>
     </div>
 
-    <div class="menu">
+    <div class="menu" id="headerMenu">
         <a href="oblibene.html">Oblíbené inzeráty</a>
         <a href="moje-inzeraty.html">Moje inzeráty</a>
         <a href="pridat-inzerat.html" style="color: #ff7b00; font-weight: 700;">Přidat inzerát</a>
@@ -27,31 +27,43 @@
     <form action="#" method="get" id="addForm">
         <div class="form-group">
             <label>Kategorie:</label>
-            <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Inter', sans-serif;">
-                <option>Zvířata</option>
-                <option>Děti</option>
-                <option>Oblečení</option>
-                <option>Nábytek</option>
-                <option>Auto</option>
-                <option>Mobily</option>
-                <option>Počítače</option>
-                <option>Ostatní</option>
+            <select id="addCat" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                <option value="Zvířata">Zvířata</option>
+                <option value="Děti">Děti</option>
+                <option value="Oblečení">Oblečení</option>
+                <option value="Nábytek">Nábytek</option>
+                <option value="Auto">Auto</option>
+                <option value="Mobily">Mobily</option>
+                <option value="Počítače">Počítače</option>
+                <option value="Sport">Sport</option>
+                <option value="Nemovitosti">Nemovitosti</option>
+                <option value="Ostatní">Ostatní</option>
             </select>
         </div>
         
         <div class="form-group">
             <label>Nadpis inzerátu:</label>
-            <input type="text" placeholder="Např. Prodám horské kolo" required>
+            <input type="text" id="addTitle" placeholder="Např. Prodám horské kolo" required>
         </div>
         
         <div class="form-group">
             <label>Popis:</label>
-            <textarea rows="5" placeholder="Detailní popis..." required></textarea>
+            <textarea id="addDesc" rows="5" placeholder="Detailní popis..." required></textarea>
         </div>
         
         <div class="form-group">
             <label>Cena (Kč):</label>
-            <input type="number" placeholder="Např. 5000" required>
+            <input type="number" id="addPrice" placeholder="Např. 5000" required>
+        </div>
+
+        <div class="form-group">
+            <label>Lokalita (Město):</label>
+            <input type="text" id="addLoc" placeholder="Např. Praha" required>
+        </div>
+
+        <div class="form-group">
+            <label>Nahrát obrázek (volitelné):</label>
+            <input type="file" id="addImg" accept="image/*" style="background: white; padding: 10px;">
         </div>
         
         <button type="submit" class="btn-primary">Přidat inzerát</button>
@@ -62,12 +74,6 @@
     <p>&copy; 2026 Bazoš Demo - Všechna práva vyhrazena.</p>
 </footer>
 
-<script>
-    document.getElementById('addForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Inzerát by byl přidán!');
-        window.location.href = 'moje-inzeraty.html';
-    });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
