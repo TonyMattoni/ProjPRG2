@@ -301,6 +301,28 @@ function initializeAppLogic() {
                 }
             }
         }
+        if (e.target.classList.contains("buy-btn")) {
+            if (!currentUser) {
+                alert("Pro nákup se musíte přihlásit.");
+                window.location.href = "login.html";
+                return;
+            }
+            if (confirm("Opravdu chcete tento předmět zakoupit?")) {
+                const id = parseInt(e.target.dataset.id);
+                const res = await fetch('api/buy.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ad_id: id})
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(data.message);
+                    window.location.href = "index.html";
+                } else {
+                    alert(data.message);
+                }
+            }
+        }
     });
 
     function renderFilteredAds(filteredAds, containerId) {
@@ -433,9 +455,8 @@ function initializeAppLogic() {
                             <p style="white-space: pre-line; line-height: 1.6;">${ad.desc}</p>
                             
                             <div class="contact-box" style="margin-top: 30px; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-                                <h4 style="margin-top: 0;">Kontaktovat prodejce</h4>
-                                <textarea rows="4" placeholder="Váš vzkaz..." style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: 'Inter', sans-serif;"></textarea>
-                                <button class="btn-primary" onclick="alert('Zpráva odeslána na e-mail prodejce!')">Odeslat zprávu</button>
+                                <h4 style="margin-top: 0;">Zakoupit předmět</h4>
+                                <button class="btn-primary buy-btn" data-id="${ad.id}">Koupit</button>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,12 @@
-CREATE DATABASE IF NOT EXISTS bazos_demo CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE bazos_demo;
+-- CREATE DATABASE IF NOT EXISTS bazos_demo CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE bazos_demo;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS ads (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,13 +18,13 @@ CREATE TABLE IF NOT EXISTS ads (
     author VARCHAR(100) NOT NULL,
     image VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS favorites (
     user_email VARCHAR(100) NOT NULL,
     ad_id INT NOT NULL,
     PRIMARY KEY (user_email, ad_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Výchozí uživatel
 INSERT IGNORE INTO users (name, email, password) VALUES ('Demo', 'demo@bazos.cz', '123');
@@ -39,3 +39,12 @@ INSERT IGNORE INTO ads (id, title, `desc`, price, category, location, author, im
 (6, 'Horská kola Scott', 'Dvě kola, jetá jednu sezónu.', 25000, 'Sport', 'Liberec', 'demo@bazos.cz', 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=400'),
 (7, 'Šatní skříň PAX', 'Bílá barva, rozměry 200x236 cm.', 4000, 'Nábytek', 'Praha', 'demo@bazos.cz', 'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=400'),
 (8, 'Byt 2+kk k pronájmu', 'Částečně vybavený, blízko centra.', 15000, 'Nemovitosti', 'Brno', 'demo@bazos.cz', 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=400');
+
+CREATE TABLE IF NOT EXISTS sales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ad_id INT NOT NULL,
+    buyer_email VARCHAR(100) NOT NULL,
+    seller_email VARCHAR(100) NOT NULL,
+    price INT NOT NULL,
+    sold_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

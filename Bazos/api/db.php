@@ -1,13 +1,13 @@
 <?php
-$host = "localhost";
-$dbname = "bazos_demo";
-$user = "root";
-$pass = ""; // Výchozí heslo v XAMPP
+$host = "sql108.infinityfree.com";
+$dbname = "if0_41785931_bazos_demo";
+$user = "if0_41785931";
+$pass = "Heslo123Heslo12";
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     die(json_encode(["success" => false, "message" => "Chyba připojení k databázi: " . $e->getMessage()]));
 }
 ?>
