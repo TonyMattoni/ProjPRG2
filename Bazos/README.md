@@ -79,3 +79,6 @@ ProjPRG2/
 
 ### Vytvoření inzerátu
 ![img](./img/vytvoreni_inzeratu.png)
+
+### Diagram
+![img](./img/Diagram.drawio.png)
