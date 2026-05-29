@@ -62,6 +62,10 @@ ProjPRG2/
    ├─ style.css                     # Globální stylování aplikace
    └─ README.md                     # Tento soubor
 ```
+## Závěr
+Díky tomuto projektu jsem si mohl vyzkoušet vývoj webové aplikace. Pro férovost chci zmínit, že jsem při vývoji občas využil AI. Určitě za mě ale nenapsala celý projekt používal jsem ji spíš jako pomocníka na ty nejsložitější věci, na kterých jsem se zasekl (například při tvorbě filtrace inzerátů v JavaScriptu nebo u složitějších SQL dotazů).
+
+Veškerý návrh, frontend (HTML/CSS) i celou základní logiku jsem si odpracoval sám. Díky tomu jsem se toho spoustu naučil, ušetřil si nervy při zbytečných zásecích a projekt tak splnil to, co měl.
 
 ## Obrazovky - ukázka
 
