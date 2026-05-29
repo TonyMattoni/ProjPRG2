@@ -1,7 +1,8 @@
 
-
+// Tady si pamatuju, kdo je zrovna prihlasenej
 let currentUser = null;
 let allAds = [];
+//seznam likenutych
 let favorites = [];
 let categoryCounts = {};
 
@@ -38,10 +39,13 @@ function normalizeStr(str) {
 
 async function initApp() {
     try {
+        // Hned po startu se zeptam serveru pokud je nekdo přihlasenej
         const userRes = await fetch('api/auth.php?action=me');
         const userData = await userRes.json();
+        // Pokud jo, ulozim si ho
         if (userData.success) currentUser = userData.user;
 
+        // Tady si vezme uplne vsechny inzeraty, at je mam pripraveny na filtrovani
         const adsRes = await fetch('api/ads.php');
         allAds = await adsRes.json();
 
@@ -257,9 +261,11 @@ function initializeAppLogic() {
         `;
         container.appendChild(item);
     }
-
+    //kliknuti kdekoliv na strance
     document.addEventListener("click", async (e) => {
+        // Kdyz uzivatel klikne na to tlacitko se srdickem
         if (e.target.classList.contains("heart-btn")) {
+            //musi byt loglej
             if (!currentUser) {
                 alert("Pro přidání do oblíbených se musíte přihlásit.");
                 return;
@@ -356,10 +362,12 @@ function initializeAppLogic() {
         const where = urlParams.get('lokalita');
         const dist = urlParams.get('vzdalenost');
         const pFrom = urlParams.get('cenaOd');
-        const pTo = urlParams.get('cenaTo'); 
-        
+        const pTo = urlParams.get('cenaTo');
+
+        // Zde je filtrace
         let filtered = allAds.filter(ad => {
             let ok = true;
+            // Kdyz inzerat nesplnuje kategorii, kterou uzivatel vybral, nebude splnen
             if (cat && ad.category !== cat) ok = false;
             if (what && !ad.title.toLowerCase().includes(what.toLowerCase()) && !ad.desc.toLowerCase().includes(what.toLowerCase())) ok = false;
             if (pFrom && ad.price < parseInt(pFrom)) ok = false;

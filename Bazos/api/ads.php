@@ -6,12 +6,14 @@ require 'db.php';
 $action = $_SERVER['REQUEST_METHOD'];
 
 if ($action === 'GET') {
+    //posilaní JS data z databaze
     $stmt = $pdo->query("SELECT * FROM ads ORDER BY created_at DESC");
     $ads = $stmt->fetchAll(PDO::FETCH_ASSOC);
     foreach($ads as &$ad) {
         $ad['id'] = (int)$ad['id'];
         $ad['price'] = (int)$ad['price'];
     }
+    //slouzi k tomu aby je obdrzel a mohl je vykreslit
     echo json_encode($ads);
 }
 elseif ($action === 'POST') {
@@ -49,6 +51,7 @@ elseif ($action === 'POST') {
         $author = $_SESSION['user']['email'];
         $image = "";
 
+        //nahrani fotky
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../uploads/';
             if (!file_exists($uploadDir)) {
@@ -63,6 +66,7 @@ elseif ($action === 'POST') {
             }
         }
 
+        // Ulozi cely inzerat do databaze
         $stmt = $pdo->prepare("INSERT INTO ads (title, `desc`, price, category, location, author, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
         if ($stmt->execute([$title, $desc, $price, $category, $location, $author, $image])) {
             echo json_encode(["success" => true]);

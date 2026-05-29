@@ -3,12 +3,14 @@ require_once 'db.php';
 header('Content-Type: application/json');
 
 session_start();
+// Kdyz uzivatel neni prihlasenej, nemuze nic kupovat hned mu to vyhodi hlasku.
 if (!isset($_SESSION['user'])) {
     echo json_encode(["success" => false, "message" => "Pro nákup se musíte přihlásit."]);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vytahne si z JavaScriptu ID inzeratu, na kterej uzivatel kliknul
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!isset($data['ad_id'])) {

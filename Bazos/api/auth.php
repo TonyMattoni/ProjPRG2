@@ -3,13 +3,16 @@ session_start();
 header('Content-Type: application/json');
 require 'db.php';
 
+// Zjistim, co po mne ten JavaScript chce
 $action = $_GET['action'] ?? '';
 
 if ($action === 'login') {
+    // Vytahnu si email a heslo, co mi JS poslal
     $data = json_decode(file_get_contents("php://input"), true);
     $email = $data['email'] ?? '';
     $password = $data['password'] ?? '';
 
+    // Mrknu do databaze, jestli tam je
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
     $stmt->execute([$email, $password]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
